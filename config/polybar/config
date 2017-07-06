@@ -1,0 +1,173 @@
+[colors]
+my_background 	= #1f1021
+my_foreground 	= #e6e6fa
+my_color0	= #9932cc
+my_color1	= #615d67
+my_color2	= #8d47c0
+my_color3	= #9932cc
+my_color4	= #8e428e
+my_color5	= #ee82ee
+my_color6	= #8a2be2
+my_color7	= #dda0dd
+my_color8	= #6644a2
+my_color9	= #9370db
+my_color10	= #903a62
+my_color11	= #9568a1
+my_color12	= #bb79dc
+my_color13	= #cfadba
+my_color14	= #d8bfd8
+my_color15	= #e6e6fa
+
+[bar/main_bar]
+bottom = false
+height = 30
+
+background = ${colors.my_background}
+foreground =  ${colors.my_foreground}
+
+font-0 = ubuntu-mono:pixelsize=12
+font-1 = Icons:pixelsize=12
+
+module-margin = 2
+
+line-size = 2
+line-color = ${colors.my_color0}
+
+modules-left = i3
+modules-center = title
+modules-right = wifi battery date
+
+wm-restack = i3
+
+[settings]
+format-underline = ${colors.my_color0}
+
+[module/title]
+type = internal/xwindow
+label = %title%
+label-maxlen = 60
+format-background = ${colors.my_background}
+format-foreground = ${colors.my_foreground}
+format-underline = ${colors.my_color0}
+
+[module/mpd]
+type = internal/mpd
+format-online = %{A1:mpc toggle:}%{A3:mpc next:}%{A2:mpc prev:}%{A4:mpc volume +2:}%{A5: mpc volume 
+-2:}<label-song>%{A}%{A}%{A}%{A}%{A}
+label-song-maxlen = 35
+
+[module/i3]
+type = internal/i3
+
+ws-icon-1 = 1;1
+ws-icon-2 = 2;2
+ws-icon-3 = 3;3
+ws-icon-4 = 4;4
+ws-icon-5 = 5;5
+ws-icon-6 = 6;6
+ws-icon-7 = 7;7
+ws-icon-8 = 8;8
+ws-icon-9 = 9;9
+ws-icon-0 = 0;0
+
+label-unfocused-background = ${colors.my_background}
+label-unfocused-foreground = ${colors.my_foreground}
+label-unfocused-underline = ${colors.my_background}
+
+label-mode = %icon%
+label-mode-padding = 2
+label-mode-background = ${colors.my_color0}
+
+label-focused = %icon%
+label-focused-foreground = ${colors.my_foreground}
+label-focused-background = ${colors.my_background}
+label-focused-underline = ${colors.my_color0}
+label-focused-padding = 2
+
+label-unfocused = %icon%
+label-unfocused-padding = 2
+
+label-visible = %icon%
+label-visible-underline = ${colors.my_foreground}
+label-visible-padding = 2
+
+label-urgent = %icon%
+label-urgent-foreground = ${colors.my_foreground}
+label-urgent-background = ${colors.my_background}
+label-urgent-underline = ${colors.my_color8}
+label-urgent-padding = 2
+
+[module/date]
+type = internal/date
+interval = 5
+time = "%{A3:bash /home/prash/lock.sh:}%a %b %d, %I:%M %p%{A}"
+format-prefix-foreground = ${colors.my_foreground}
+format-underline = ${colors.my_color0}
+label = %date%%time%
+format-margin = 2
+
+[module/battery]
+type = internal/battery
+; This is useful in case the battery never reports 100% charge
+full-at = 99
+; Use the following command to list batteries and adapters:
+; $ ls -1 /sys/class/power_supply/
+battery = BAT1
+adapter = ACAD
+; If an inotify event haven't been reported in this many
+; seconds, manually poll for new values.
+;
+; Needed as a fallback for systems that don't report events
+; on sysfs/procfs.
+;
+; Disable polling by setting the interval to 0.
+;
+; Default: 5
+poll-interval = 5
+; see "man date" for details on how to format the time string
+; NOTE: if you want to use syntax tags here you need to use %%{...}
+; Default: %H:%M:%S
+time-format = %H:%M
+; Available tags:
+;   <label-charging> (default)
+;   <bar-capacity>
+;   <ramp-capacity>
+;   <animation-charging>
+format-charging = <label-charging>
+
+; Available tags:
+;   <label-discharging> (default)
+;   <bar-capacity>
+;   <ramp-capacity>
+format-discharging = <label-discharging>
+
+; Available tags:
+;   <label-full> (default)
+;   <bar-capacity>
+;   <ramp-capacity>
+format-full = <label-full>
+
+; Available tokens:
+;   %percentage% (default)
+;   %time%
+;   %consumption% (shows current charge rate in watts)
+label-charging = + %percentage%%
+
+; Available tokens:
+;   %percentage% (default)
+;   %time%
+;   %consumption% (shows current discharge rate in watts)
+label-discharging = - %percentage%%
+
+; Available tokens:
+;   %percentage% (default)
+label-full = FULL
+
+[module/wifi]
+type = internal/network
+interface = wlp3s0
+interval = 3.0
+
+format-connected = <label-connected>
+label-connected = %local_ip%
+label-disconnected = 0.0.0.0
